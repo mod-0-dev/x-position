@@ -1,7 +1,15 @@
 #!/usr/bin/env bun
 <<<<<<< HEAD
+<<<<<<< HEAD
 console.log("envdiff v0.1.0 — coming soon");
 =======
+=======
+<<<<<<< HEAD
+console.log("envdiff v0.1.0 — coming soon");
+=======
+=======
+>>>>>>> 665a1f4 (feat: wire up CLI (args, --keys-only, --help, error handling))
+>>>>>>> d7a798f (feat: wire up CLI (args, --keys-only, --help, error handling))
 import { readFileSync } from "fs";
 import { parseEnv } from "./parser.ts";
 import { diffEnv } from "./differ.ts";
@@ -54,4 +62,10 @@ if (total === 0) {
 } else {
   console.log(`\n${removed.size} removed, ${added.size} added, ${changed.size} changed`);
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 665a1f4 (feat: wire up CLI (args, --keys-only, --help, error handling))
+=======
+>>>>>>> d7a798f (feat: wire up CLI (args, --keys-only, --help, error handling))
 >>>>>>> 665a1f4 (feat: wire up CLI (args, --keys-only, --help, error handling))
