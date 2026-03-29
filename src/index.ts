@@ -1,15 +1,4 @@
 #!/usr/bin/env bun
-<<<<<<< HEAD
-<<<<<<< HEAD
-console.log("envdiff v0.1.0 — coming soon");
-=======
-=======
-<<<<<<< HEAD
-console.log("envdiff v0.1.0 — coming soon");
-=======
-=======
->>>>>>> 665a1f4 (feat: wire up CLI (args, --keys-only, --help, error handling))
->>>>>>> d7a798f (feat: wire up CLI (args, --keys-only, --help, error handling))
 import { readFileSync } from "fs";
 import { parseEnv } from "./parser.ts";
 import { diffEnv } from "./differ.ts";
@@ -72,16 +61,4 @@ if (total === 0) {
   ].filter(Boolean).join(gray("  ·  "));
   console.log("  " + parts);
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 521bbec (feat: colorized ANSI output with summary footer)
-<<<<<<< HEAD
->>>>>>> 665a1f4 (feat: wire up CLI (args, --keys-only, --help, error handling))
-=======
->>>>>>> d7a798f (feat: wire up CLI (args, --keys-only, --help, error handling))
->>>>>>> 665a1f4 (feat: wire up CLI (args, --keys-only, --help, error handling))
-=======
 console.log();
->>>>>>> d7e2780 (feat: colorized ANSI output with summary footer)
