@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pramid --version)",
+      "Bash(pramid *)",
+      "Bash(gh *)"
+    ]
+  }
+}
