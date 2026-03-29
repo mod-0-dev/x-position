@@ -1,0 +1,15 @@
+{
+  "name": "envdiff",
+  "version": "0.1.0",
+  "description": "Diff two .env files — show added, removed, and changed keys",
+  "bin": {
+    "envdiff": "./src/index.ts"
+  },
+  "scripts": {
+    "start": "bun src/index.ts",
+    "build": "bun build src/index.ts --outfile dist/envdiff --target bun"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
