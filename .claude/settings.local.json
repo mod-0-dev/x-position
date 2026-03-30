@@ -3,7 +3,13 @@
     "allow": [
       "Bash(pramid --version)",
       "Bash(pramid *)",
-      "Bash(gh *)"
+      "Bash(gh *)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git rebase:*)"
     ]
   }
 }
