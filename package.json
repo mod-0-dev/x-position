@@ -4,7 +4,8 @@
   "description": "Diff two .env files — show added, removed, and changed keys",
   "bin": {
     "envdiff": "./src/index.ts",
-    "httpcheck": "./src/httpcheck/index.ts"
+    "httpcheck": "./src/httpcheck/index.ts",
+    "codeage": "./src/codeage/index.ts"
   },
   "scripts": {
     "start": "bun src/index.ts",
