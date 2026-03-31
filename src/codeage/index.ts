@@ -1,5 +1,8 @@
 #!/usr/bin/env bun
 import { parseArgs } from "util";
+import { statSync } from "fs";
+import { blameFile } from "./blame.ts";
+import { renderFile } from "./render.ts";
 
 const VERSION = "0.1.0";
 
@@ -77,4 +80,26 @@ export function parseCliArgs(argv: string[]): CliOptions {
 
 // --- main ---
 const opts = parseCliArgs(process.argv.slice(2));
-console.log(`codeage: target=${opts.target} (implementation coming in later PRs)`);
+
+let stat: ReturnType<typeof statSync>;
+try {
+  stat = statSync(opts.target);
+} catch {
+  process.stderr.write(`error: cannot access "${opts.target}"\n`);
+  process.exit(1);
+}
+
+if (stat.isDirectory()) {
+  // Directory mode — implemented in feat/dir-mode
+  console.log(`[directory mode coming in next PR — target: ${opts.target}]`);
+} else {
+  // File mode
+  try {
+    const entries = blameFile(opts.target);
+    process.stdout.write(renderFile(entries, { blame: opts.blame, color: opts.color }));
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    process.stderr.write(`error: ${msg}\n`);
+    process.exit(1);
+  }
+}
