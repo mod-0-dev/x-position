@@ -1,8 +1,12 @@
 #!/usr/bin/env bun
 import { parseArgs } from "util";
 import { statSync } from "fs";
+import { resolve } from "path";
 import { blameFile } from "./blame.ts";
 import { renderFile } from "./render.ts";
+import { collectFiles, summarizeFile, renderDirReport } from "./dir.ts";
+import type { OldestLine } from "./dir.ts";
+import { timestampToAgeDays } from "./color.ts";
 
 const VERSION = "0.1.0";
 
@@ -80,22 +84,49 @@ export function parseCliArgs(argv: string[]): CliOptions {
 
 // --- main ---
 const opts = parseCliArgs(process.argv.slice(2));
+const target = resolve(opts.target);
 
 let stat: ReturnType<typeof statSync>;
 try {
-  stat = statSync(opts.target);
+  stat = statSync(target);
 } catch {
   process.stderr.write(`error: cannot access "${opts.target}"\n`);
   process.exit(1);
 }
 
 if (stat.isDirectory()) {
-  // Directory mode — implemented in feat/dir-mode
-  console.log(`[directory mode coming in next PR — target: ${opts.target}]`);
+  const cwd = process.cwd();
+  const files = collectFiles(target);
+
+  if (files.length === 0) {
+    process.stderr.write(`no source files found in "${opts.target}"\n`);
+    process.exit(1);
+  }
+
+  const summaries = files.flatMap(f => {
+    const s = summarizeFile(f, cwd);
+    return s ? [s] : [];
+  });
+
+  if (summaries.length === 0) {
+    process.stderr.write("no tracked files found (are these committed?)\n");
+    process.exit(1);
+  }
+
+  // Collect all lines across all files, sorted by age descending
+  const allOldest: OldestLine[] = summaries.map(s => ({
+    filePath: s.filePath,
+    entry: s.oldestEntry,
+    ageDays: s.oldestAge,
+  })).sort((a, b) => b.ageDays - a.ageDays);
+
+  process.stdout.write(renderDirReport(summaries, allOldest, cwd, {
+    oldest: opts.oldest,
+    color: opts.color,
+  }));
 } else {
-  // File mode
   try {
-    const entries = blameFile(opts.target);
+    const entries = blameFile(target);
     process.stdout.write(renderFile(entries, { blame: opts.blame, color: opts.color }));
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
