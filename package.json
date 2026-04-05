@@ -1,15 +1,14 @@
 {
-  "name": "envdiff",
+  "name": "jot",
   "version": "0.1.0",
-  "description": "Diff two .env files — show added, removed, and changed keys",
+  "description": "A lightweight personal journal CLI",
   "bin": {
-    "envdiff": "./src/index.ts",
-    "httpcheck": "./src/httpcheck/index.ts",
-    "codeage": "./src/codeage/index.ts"
+    "jot": "./src/index.ts"
   },
   "scripts": {
     "start": "bun src/index.ts",
-    "build": "bun build src/index.ts --outfile dist/envdiff --target bun"
+    "build": "bun build src/index.ts --outfile dist/jot --target bun",
+    "dev": "bun --watch src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
