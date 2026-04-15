@@ -8,7 +8,7 @@ export type CodeAgeFeature = {
 export const codeAgePlan: CodeAgeFeature[] = [
   { name: "init", implemented: true },
   { name: "blame-parser", implemented: true },
-  { name: "age-color", implemented: false },
+  { name: "age-color", implemented: true },
   { name: "render", implemented: false },
   { name: "dir-mode", implemented: false },
 ];
@@ -31,4 +31,16 @@ export function parsePorcelainBlame(input: string): BlameEntry[] {
   }
 
   return entries;
+}
+
+export function ageToRgb(elapsedDays: number, maxDays: number): [number, number, number] {
+  if (maxDays <= 0) {
+    return [0, 255, 0];
+  }
+
+  const ratio = Math.min(Math.max(elapsedDays / maxDays, 0), 1);
+  const red = Math.round(255 * ratio);
+  const green = Math.round(255 * (1 - ratio));
+
+  return [red, green, 0];
 }
