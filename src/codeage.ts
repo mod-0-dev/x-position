@@ -10,7 +10,7 @@ export const codeAgePlan: CodeAgeFeature[] = [
   { name: "blame-parser", implemented: true },
   { name: "age-color", implemented: true },
   { name: "render", implemented: true },
-  { name: "dir-mode", implemented: false },
+  { name: "dir-mode", implemented: true },
 ];
 
 export type BlameEntry = {
@@ -50,4 +50,13 @@ export function renderAgeLine(line: string, elapsedDays: number, maxDays: number
   const prefix = `\\x1b[38;2;${r};${g};${b}m`;
   const reset = "\\x1b[0m";
   return `${prefix}${line}${reset}`;
+}
+
+export type FileAgeSummary = {
+  path: string;
+  oldestLineAgeDays: number;
+};
+
+export function summarizeDirectoryAges(summaries: FileAgeSummary[]): FileAgeSummary[] {
+  return summaries.sort((a, b) => b.oldestLineAgeDays - a.oldestLineAgeDays);
 }
