@@ -9,7 +9,7 @@ export const codeAgePlan: CodeAgeFeature[] = [
   { name: "init", implemented: true },
   { name: "blame-parser", implemented: true },
   { name: "age-color", implemented: true },
-  { name: "render", implemented: false },
+  { name: "render", implemented: true },
   { name: "dir-mode", implemented: false },
 ];
 
@@ -43,4 +43,11 @@ export function ageToRgb(elapsedDays: number, maxDays: number): [number, number,
   const green = Math.round(255 * (1 - ratio));
 
   return [red, green, 0];
+}
+
+export function renderAgeLine(line: string, elapsedDays: number, maxDays: number): string {
+  const [r, g, b] = ageToRgb(elapsedDays, maxDays);
+  const prefix = `\\x1b[38;2;${r};${g};${b}m`;
+  const reset = "\\x1b[0m";
+  return `${prefix}${line}${reset}`;
 }
