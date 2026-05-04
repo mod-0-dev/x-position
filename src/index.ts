@@ -19,6 +19,7 @@ ${c.bold}COMMANDS${c.reset}
   stats                        streak, word count, mood chart
   export                       export all entries to markdown
   timeline                     calendar view of entries  [--month <1-12>] [--year <YYYY>]
+  dup                          find similar / duplicate entries  [--threshold <0..1>] [--limit <N>]
 
 ${c.bold}MOODS${c.reset}
   great · good · okay · bad · rough
@@ -52,6 +53,7 @@ const commands: Record<string, () => Promise<void>> = {
   stats:  () => import("./commands/stats").then((m) => m.run(args.slice(1))),
   export: () => import("./commands/export").then((m) => m.run(args.slice(1))),
   timeline: () => import("./commands/timeline").then((m) => m.run(args.slice(1))),
+  dup: () => import("./commands/dup").then((m) => m.run(args.slice(1))),
 };
 
 // bare "jot <text>" quick-add
