@@ -18,6 +18,7 @@ ${c.bold}COMMANDS${c.reset}
   search <query>               full-text search
   stats                        streak, word count, mood chart
   export                       export all entries to markdown
+  timeline                     calendar view of entries  [--month <1-12>] [--year <YYYY>]
 
 ${c.bold}MOODS${c.reset}
   great · good · okay · bad · rough
@@ -50,6 +51,7 @@ const commands: Record<string, () => Promise<void>> = {
   search: () => import("./commands/search").then((m) => m.run(args.slice(1))),
   stats:  () => import("./commands/stats").then((m) => m.run(args.slice(1))),
   export: () => import("./commands/export").then((m) => m.run(args.slice(1))),
+  timeline: () => import("./commands/timeline").then((m) => m.run(args.slice(1))),
 };
 
 // bare "jot <text>" quick-add
